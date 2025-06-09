@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../splash/view/splash_screen.dart';
+
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 
@@ -18,9 +20,9 @@ class AuthGate extends StatelessWidget {
         final session = snapshot.hasData? snapshot.data!.session:null;
 
         if(session != null) {
-          return const HomePage();
+          return const SplashScreen();
         } else {
-          return const LoginPage();
+          return const AuthGate();
         }
       },
     );
