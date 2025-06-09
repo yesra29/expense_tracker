@@ -14,12 +14,12 @@ class SplashScreen extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (context) => const AuthGate()),
       );
-    }
-    );
+    });
     return Container(
       color: AppColors.splashBackground,
       child: Center(
-          child: Image.asset(AssetsPath.appLogo, height: 275, width: 275)),
+        child: Image.asset(AssetsPath.appLogo, height: 275, width: 275),
+      ),
     );
   }
 }
