@@ -1,3 +1,4 @@
+import 'package:expense_tracker/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }
