@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../login/view/login.dart';
 import '../sign_up/view/sign_up.dart';
 import '../splash/view/splash_screen.dart';
 
@@ -23,7 +24,7 @@ class AuthGate extends StatelessWidget {
         if(session != null) {
           return const SplashScreen();
         } else {
-          return const SignUp();
+          return const LoginPage();
         }
       },
     );

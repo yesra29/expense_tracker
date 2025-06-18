@@ -1,6 +1,7 @@
-import 'package:expense_tracker/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'login/view/login.dart';
 
 void main() async {
   await Supabase.initialize(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
       ),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: LoginPage(),
     );
   }
 }
