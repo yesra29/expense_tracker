@@ -1,6 +1,8 @@
+import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'home_page/view/home_page.dart';
 import 'login/view/login.dart';
 
 void main() async {
@@ -21,10 +23,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Tracker',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.splashBackground,
+        ),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }
