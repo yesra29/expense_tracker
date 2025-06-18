@@ -1,3 +1,4 @@
+import 'package:expense_tracker/login/view/login.dart';
 import 'package:expense_tracker/utils/assets_path.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _SignUpState extends State<SignUp> {
         body: Stack(
           children: [
             Opacity(
-              opacity: 0.5 ,
+              opacity: 0.5,
               child: Container(
                 decoration: BoxDecoration(color: Color(0xFF4CAF50)),
                 child: Center(
@@ -44,36 +45,55 @@ class _SignUpState extends State<SignUp> {
                     controller: emailController,
                     isPassword: false,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15),
                   CustomTextField(
                     hintText: "Enter your password",
                     prefixIcon: Icons.password_outlined,
                     controller: passwordController,
                     isPassword: true,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15),
                   CustomTextField(
                     hintText: "Confirm your password",
                     prefixIcon: Icons.password_outlined,
                     controller: confirmPasswordController,
                     isPassword: true,
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  CustomButton(
-                    text: "Sign Up",
-                  ),
+                  SizedBox(height: 25),
+                  CustomButton(text: "Sign Up"),
+                  SizedBox(height: 170),
+                  _bottomText(),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _bottomText() {
+    return Column(
+      children: [
+        const Text("Already have an account?"),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            );
+          },
+          child: const Text(
+            "Login",
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
