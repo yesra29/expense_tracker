@@ -1,6 +1,8 @@
 import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../new_expense_page/view/new_expense.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -27,16 +29,32 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
       ),
       drawer: _drawer(),
-      floatingActionButton: CircleAvatar(
-        backgroundColor: AppColors.splashBackground,
-        child: Icon(Icons.add, color: Colors.white),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const NewExpense()),
+          );
+        },
+        child: CircleAvatar(
+          radius: 25,
+          backgroundColor: AppColors.splashBackground,
+          child: Icon(Icons.add, color: Colors.white),
+        ),
       ),
-      body: Column(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+        ],
+      ),
     );
   }
 
   Widget _drawer() {
     return Drawer(
+      backgroundColor: Colors.white,
       child: ListView(
         children: [
           Container(
@@ -87,7 +105,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      backgroundColor: Colors.white,
     );
   }
 }
