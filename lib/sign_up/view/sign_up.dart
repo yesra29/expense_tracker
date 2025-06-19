@@ -18,6 +18,13 @@ class _SignUpState extends State<SignUp> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,7 +67,37 @@ class _SignUpState extends State<SignUp> {
                     isPassword: true,
                   ),
                   SizedBox(height: 25),
-                  CustomButton(text: "Sign Up"),
+                  CustomButton(
+                    text: "Sign Up",
+                    onTap: () async {
+                      final email = emailController.text.trim();
+                      final password = passwordController.text;
+                      final confirmPassword = confirmPasswordController.text;
+                      if (email.isEmpty ||
+                          password.isEmpty ||
+                          confirmPassword.isEmpty) {
+                        _showMessage("Please enter all fields");
+                        return;
+                      }
+                      if (password != confirmPassword) {
+                        _showMessage("Password do not match.");
+                        return;
+                      }
+
+                      final result = await authService.signUp(email, password);
+                      _showMessage(result);
+                      if (result.startsWith("Sign-up successful")) {
+                        Future.delayed(const Duration(seconds: 2), () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        });
+                      }
+                    },
+                  ),
                   SizedBox(height: 170),
                   _bottomText(),
                 ],
@@ -80,7 +117,7 @@ class _SignUpState extends State<SignUp> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>  LoginPage()),
+              MaterialPageRoute(builder: (context) => LoginPage()),
             );
           },
           child: const Text(

@@ -1,3 +1,4 @@
+import 'package:expense_tracker/sign_up/view/sign_up.dart';
 import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SignUp(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/auth/auth_service.dart';
+import 'package:expense_tracker/home_page/view/home_page.dart';
 import 'package:expense_tracker/sign_up/view/sign_up.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,12 @@ class _LoginPageState extends State<LoginPage> {
         ).showSnackBar(SnackBar(content: Text("Error:$e")));
       }
     }
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -68,7 +75,29 @@ class _LoginPageState extends State<LoginPage> {
                     isPassword: true,
                   ),
                   SizedBox(height: 25),
-                  CustomButton(text: "Login"),
+                  CustomButton(
+                    text: "Login",
+                    onTap: () async {
+                      final email = emailController.text.trim();
+                      final password = passwordController.text;
+                      if (email.isEmpty || password.isEmpty) {
+                        _showMessage("Please enter all fields");
+                        return;
+                      }
+                      final result = await authService.signInWithPassword(email, password);
+                      _showMessage(result);
+                      if (result.toLowerCase().contains("success")) {
+                        Future.delayed(const Duration(seconds: 2), () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                          );
+                        });
+                      }
+                    },
+                  ),
                   SizedBox(height: 250),
                   _bottomText(),
                 ],
@@ -97,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: TextDecoration.underline,
               color: Colors.black,
               fontSize: 16,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

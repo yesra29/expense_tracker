@@ -43,10 +43,19 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
 
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            child: Card(
+              color: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(children: [Icon(Icons.pie_chart)]),
+            ),
+          ),
         ],
       ),
     );
