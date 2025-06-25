@@ -1,8 +1,8 @@
+import 'package:expense_tracker/login/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../home_page/view/home_page.dart';
-import '../splash/view/splash_screen.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -23,7 +23,7 @@ class AuthGate extends StatelessWidget {
         if (session != null) {
           return const HomePage();
         } else {
-          return const SplashScreen();
+          return const LoginPage();
         }
       },
     );

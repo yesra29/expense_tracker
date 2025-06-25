@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/assets_path.dart';
 import '../../utils/custom_button.dart';
-import '../../utils/custom_text_field.dart';
+import '../../utils/auth_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -61,14 +61,14 @@ class _LoginPageState extends State<LoginPage> {
               right: 20,
               child: Column(
                 children: [
-                  CustomTextField(
+                  AuthTextField(
                     hintText: "Enter your email",
                     prefixIcon: Icons.mail_outline,
                     controller: emailController,
                     isPassword: false,
                   ),
                   SizedBox(height: 15),
-                  CustomTextField(
+                  AuthTextField(
                     hintText: "Enter your password",
                     prefixIcon: Icons.password_outlined,
                     controller: passwordController,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatefulWidget {
+class AuthTextField extends StatefulWidget {
   final String hintText;
   final TextStyle? hintTextStyle;
   final IconData prefixIcon;
   final TextEditingController controller;
   final bool isPassword;
 
-  const CustomTextField({
+  const AuthTextField({
     super.key,
     required this.hintText,
     this.hintTextStyle,
@@ -17,10 +17,10 @@ class CustomTextField extends StatefulWidget {
   });
 
   @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
+  State<AuthTextField> createState() => _CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class _CustomTextFieldState extends State<AuthTextField> {
   late bool obscureText;
   @override
   @override

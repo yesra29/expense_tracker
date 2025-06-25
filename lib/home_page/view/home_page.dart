@@ -1,7 +1,9 @@
+import 'package:expense_tracker/login/view/login.dart';
 import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../new_expense_page/view/new_expense.dart';
+import '../../utils/summary_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,50 +15,41 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: AppColors.splashBackground,
-        title: Text(
-          "Spendo",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      drawer: _drawer(),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const NewExpense()),
-          );
-        },
-        child: CircleAvatar(
-          radius: 25,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
           backgroundColor: AppColors.splashBackground,
-          child: Icon(Icons.add, color: Colors.white),
-        ),
-      ),
-      body: Column(
-
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            child: Card(
-              color: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(children: [Icon(Icons.pie_chart)]),
+          title: Text(
+            "Spendo",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
             ),
           ),
-        ],
+          centerTitle: true,
+          elevation: 0,
+        ),
+        drawer: _drawer(),
+        floatingActionButton: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NewExpense()),
+            );
+          },
+          child: CircleAvatar(
+            radius: 25,
+            backgroundColor: AppColors.splashBackground,
+            child: Icon(Icons.add, color: Colors.white),
+          ),
+        ),
+        body: Column(
+          children: [
+            SummaryCard(duration: "Last 7 days"),
+          ],
+        ),
       ),
     );
   }
@@ -109,6 +102,16 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text("Logout"),
+            trailing: Icon(Icons.logout),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
               );
             },
           ),

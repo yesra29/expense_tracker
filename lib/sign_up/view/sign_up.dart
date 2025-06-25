@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../auth/auth_service.dart';
 import '../../utils/custom_button.dart';
-import '../../utils/custom_text_field.dart';
+import '../../utils/auth_text_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -46,21 +46,21 @@ class _SignUpState extends State<SignUp> {
               right: 20,
               child: Column(
                 children: [
-                  CustomTextField(
+                  AuthTextField(
                     hintText: "Enter your email",
                     prefixIcon: Icons.mail_outline,
                     controller: emailController,
                     isPassword: false,
                   ),
                   SizedBox(height: 15),
-                  CustomTextField(
+                  AuthTextField(
                     hintText: "Enter your password",
                     prefixIcon: Icons.password_outlined,
                     controller: passwordController,
                     isPassword: true,
                   ),
                   SizedBox(height: 15),
-                  CustomTextField(
+                  AuthTextField(
                     hintText: "Confirm your password",
                     prefixIcon: Icons.password_outlined,
                     controller: confirmPasswordController,

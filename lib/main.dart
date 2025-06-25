@@ -1,10 +1,8 @@
-import 'package:expense_tracker/sign_up/view/sign_up.dart';
 import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'home_page/view/home_page.dart';
-import 'login/view/login.dart';
+import 'new_expense_page/view/new_expense.dart';
 
 void main() async {
   await Supabase.initialize(
@@ -29,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUp(),
+      home: NewExpense(),
     );
   }
 }
