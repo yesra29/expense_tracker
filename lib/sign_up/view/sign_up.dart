@@ -1,6 +1,7 @@
 import 'package:expense_tracker/login/view/login.dart';
 import 'package:expense_tracker/utils/assets_path.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../auth/auth_service.dart';
 import '../../utils/custom_button.dart';
@@ -14,6 +15,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final user =Supabase.instance.client.auth.currentUser;
   final authService = AuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -87,6 +89,13 @@ class _SignUpState extends State<SignUp> {
                       final result = await authService.signUp(email, password);
                       _showMessage(result);
                       if (result.startsWith("Sign-up successful")) {
+                        final userId =Supabase.instance.client.auth.currentUser?.id;
+                        if(userId!=null){
+                          await Supabase.instance.client.from("users").insert({
+                            'id':userId,
+                            'email':email,
+                          });
+                        }
                         Future.delayed(const Duration(seconds: 2), () {
                           Navigator.pushReplacement(
                             context,

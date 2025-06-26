@@ -1,7 +1,9 @@
 import 'package:expense_tracker/login/view/login.dart';
 import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../auth/auth_service.dart';
 import '../../new_expense_page/view/new_expense.dart';
 import '../../utils/summary_card.dart';
 
@@ -108,10 +110,13 @@ class _HomePageState extends State<HomePage> {
           ListTile(
             title: Text("Logout"),
             trailing: Icon(Icons.logout),
-            onTap: () {
-              Navigator.push(
+            onTap: () async{
+             final authService = AuthService();
+             await authService.signOut();
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => LoginPage()),
+                  (route) =>false,
               );
             },
           ),

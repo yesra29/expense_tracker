@@ -1,5 +1,6 @@
 import 'package:expense_tracker/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../utils/expense_input_field.dart';
 
 class NewExpense extends StatefulWidget {
@@ -13,6 +14,34 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime? selectedDate;
   final amountController = TextEditingController();
   final merchantController = TextEditingController();
+
+  Future<void> saveExpense({
+    required double amount,
+  required String merchant,
+  required String category,
+  required DateTime date,
+}) async {
+    final userId = Supabase.instance.client.auth.currentUser?.id;
+    if(userId==null)
+      throw Exception("User not found");
+
+    if (userId != null) {
+      final response = await Supabase.instance.client.from("expenses").insert({
+        'user_id': userId,
+            'amount': amount,
+            'merchant': merchant,
+            'category': category,
+            'date': date.toIso8601String(),
+
+      });
+    }
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,24 +108,37 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               const SizedBox(height: 15),
               _dateButton(),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _button(
-                    bgColor: Colors.grey,
-                    fontColor: Colors.black,
-                    text: "Cancel",
-                    onTap: () {},
-                  ),
-                  const SizedBox(width: 30),
-                  _button(
-                    bgColor: AppColors.splashBackground,
-                    fontColor: Colors.white,
-                    text: "Save",
-                    onTap: () {},
-                  ),
-                ],
+              const SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _button(
+                      bgColor: Colors.grey,
+                      fontColor: Colors.black,
+                      text: "Cancel",
+                      onTap: () {},
+                    ),
+                    const SizedBox(width: 30),
+                    _button(
+                      bgColor: AppColors.splashBackground,
+                      fontColor: Colors.white,
+                      text: "Save",
+                      onTap: () async{
+                        final amount = amountController.text;
+                        final merchant = merchantController.text;
+                        final category= selectedCategory;
+                        final date = selectedDate;
+
+                        if(amount.isEmpty || category==null||date==null){
+                          _showMessage("Please enter all fields");
+                          return;
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -171,7 +213,7 @@ class _NewExpenseState extends State<NewExpense> {
       onTap: onTap,
       child: Container(
         height: 50,
-        width: 100,
+        width: 150,
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(10),
